@@ -1,6 +1,13 @@
+@{
+  Layout = "_Layout";
+}
 <h2>Search by artist</h2>
-<form action="/search_by_artist" method="post">
-  <label for="name">Enter an artist name or part of artist name:</label>
-  <input id="name" name="name" type="text">
-  <button type="submit">Submit</button>
-</form>
+<div class="container">
+  <form action="/search_by_artist" method="post">
+    <div class="form-group">
+      <label for="name">Enter an artist name or part of artist name:</label>
+      <input class="form-control" id="name" name="name" type="text" placeholder="Search by artist name...">
+    </div>
+    <button class="btn btn-info" type="submit">Submit</button>
+  </form>
+</div>

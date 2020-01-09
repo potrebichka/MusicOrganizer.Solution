@@ -1,7 +1,18 @@
-<form action="/records" method="post">
-  <label for="title">Add a new record</label>
-  <input id="title" name="title" type="text">
-  <label for="name">Add an artist name</label>
-  <input id="name" name="name" type="text">
-  <button type="submit">Submit</button>
-</form>
+@{
+  Layout = "_Layout";
+}
+<div class="container">
+  <form action="/records" method="post">
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="title">Add a new record:</label>
+        <input class="form-control" id="title" name="title" type="text" placeholder="Record name...">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="name">Add an artist name:</label>
+        <input class="form-control" id="name" name="name" type="text" placeholder="Artist name...">
+      </div>
+    </div>
+      <button class="btn btn-info" type="submit">Submit</button>
+  </form>
+</div>

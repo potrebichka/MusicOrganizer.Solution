@@ -1,8 +1,10 @@
-  
+@{
+    Layout = "_Layout";
+}
 <h1>Record Details: </h1>
 
-<h2>@Model.Title</h2>
-<h3>@Model.NameOfArtist.Name</h3>
+<h3>Record Title: @Model.Title by @Model.NameOfArtist.Name</h3>
 
-<a href='/records/new'>Add another record</a>
-<a href='/records'>View all records</a>
+<p><a href='/records/new'>Add another record</a></p>
+<p><a href='/records'>View all records</a></p>
+<p><a href="/"> Go home</a></p>

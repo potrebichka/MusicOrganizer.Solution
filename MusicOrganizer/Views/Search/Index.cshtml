@@ -6,13 +6,16 @@
 {
     <h3>No artist have been found!</h3>
 }
+else
+{
+    <h1>Here is your search result:</h1>
+    <ul>
+        @foreach (Artist artist in Model)
+        {
+            <li><a href="/artists/@artist.Id">@artist.Name</a></li>
+        }
+    </ul>
+}
 
-<ul>
-    @foreach (Artist artist in Model)
-    {
-        <li><a href="/artists/@artist.Id">@artist.Name</a></li>
-    }
-</ul>
-
-<a href="/search_by_artist/new">Search another artist/a>
-<a href="/"> Go home</a>
+<p><a href="/search_by_artist/new">Search another artist</a></p>
+<p><a href="/"> Go home</a></p>

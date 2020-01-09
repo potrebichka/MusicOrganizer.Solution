@@ -2,7 +2,7 @@
 @{
     Layout = "_Layout";
 }
-<h3>Here are all the records by this artist @Model["artist"]:</h3>
+<h3>Here are all the records by <em>@Model["artist"].Name:</em></h3>
 
 <ol>
 @foreach (Record record in @Model["records"])
@@ -12,4 +12,4 @@
 </ol>
 
 <p><a href='/artists'>Return to artists list</a></p>
-<p><a href='/'>Return to Main Page</a></p>
+<p><a href="/"> Go home</a></p>
