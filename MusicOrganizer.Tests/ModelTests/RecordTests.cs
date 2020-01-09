@@ -17,8 +17,9 @@ namespace MusicOrganizer.Tests
     [TestMethod]
     public void RecordConstructor_CreatesInstanceOfRecord_Record()
     {
-      Record newRecord = new Record("test");
-      Assert.AreEqual(typeof(Record), newRecord.GetType());
+        Artist newArtist = new Artist("test");
+        Record newRecord = new Record("test", newArtist);
+        Assert.AreEqual(typeof(Record), newRecord.GetType());
     }
 
     [TestMethod]
@@ -28,7 +29,8 @@ namespace MusicOrganizer.Tests
       string title = "Walk the dog.";
 
       //Act
-      Record newRecord = new Record(title);
+      Artist newArtist = new Artist("test");
+      Record newRecord = new Record(title, newArtist);
       string result = newRecord.Title;
 
       //Assert
@@ -40,7 +42,8 @@ namespace MusicOrganizer.Tests
     {
       //Arrange
       string title = "Walk the dog.";
-      Record newRecord = new Record(title);
+      Artist newArtist = new Artist("test");
+      Record newRecord = new Record(title, newArtist);
 
       //Act
       string updatedTitle = "Do the dishes";
@@ -70,8 +73,9 @@ namespace MusicOrganizer.Tests
       //Arrange
       string title01 = "Walk the dog";
       string title02 = "Wash the dishes";
-      Record newRecord1 = new Record(title01);
-      Record newRecord2 = new Record(title02);
+      Artist newArtist = new Artist("test");
+      Record newRecord1 = new Record(title01, newArtist);
+      Record newRecord2 = new Record(title02, newArtist);
       List<Record> newList = new List<Record> { newRecord1, newRecord2 };
 
       //Act
@@ -86,7 +90,8 @@ namespace MusicOrganizer.Tests
     {
       //Arrange
       string Title = "Walk the dog.";
-      Record newRecord = new Record(Title);
+      Artist newArtist = new Artist("test");
+      Record newRecord = new Record(Title, newArtist);
 
       //Act
       int result = newRecord.Id;
@@ -101,8 +106,9 @@ namespace MusicOrganizer.Tests
       //Arrange
       string title01 = "Walk the dog";
       string title02 = "Wash the dishes";
-      Record newRecord1 = new Record(title01);
-      Record newRecord2 = new Record(title02);
+      Artist newArtist = new Artist("test");
+      Record newRecord1 = new Record(title01, newArtist);
+      Record newRecord2 = new Record(title02, newArtist);
 
       //Act
       Record result = Record.Find(2);

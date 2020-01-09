@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using MusicOrganizer.Models;
+using System;
 
 namespace MusicOrganizer.Controllers
 {
@@ -22,20 +23,27 @@ namespace MusicOrganizer.Controllers
         [HttpPost("/records")]
         public ActionResult Create(string title, string name)
         {
-            int result = Artist.FindArtist(name);
-            Artist myArtist;
-            if (result == -1)
+            if(title == null || name == null)
             {
-                myArtist = new Artist(name);
+                return RedirectToAction("Index");
             }
-            else 
+            else
             {
-                myArtist = Artist.GetArtist(result);
+                int result = Artist.FindArtist(name);
+                Artist myArtist;
+                if (result == -1)
+                {
+                    myArtist = new Artist(name);
+                }
+                else 
+                {
+                    myArtist = Artist.GetArtist(result);
+                }
+                
+                Record myRecord = new Record(title, myArtist);
+                myArtist.AddRecord(myRecord);
+                return RedirectToAction("Index");
             }
-            
-            Record myRecord = new Record(title, myArtist);
-            myArtist.AddRecord(myRecord);
-            return RedirectToAction("Index");
         }
 
         [HttpPost("/records/delete")]

@@ -99,16 +99,74 @@ namespace MusicOrganizer.Tests
     public void Find_ReturnsCorrectArtist_Artist()
     {
       //Arrange
-      string name01 = "Walk the dog";
-      string name02 = "Wash the dishes";
-      Artist newArtist1 = new Artist(name01);
-      Artist newArtist2 = new Artist(name02);
+        string name01 = "Walk the dog";
+        string name02 = "Wash the dishes";
+        Artist newArtist1 = new Artist(name01);
+        Artist newArtist2 = new Artist(name02);
 
-      //Act
-      Artist result = Artist.Find(2);
+        //Act
+        Artist result = Artist.Find(2);
 
-      //Assert
-      Assert.AreEqual(newArtist2, result);
+        //Assert
+        Assert.AreEqual(newArtist2, result);
+    }
+    [TestMethod]
+    public void GetArtistPartial_ReturnListOfArtists_List()
+    {
+            //Arrange
+        string name01 = "Walk the dog";
+        string name02 = "Wash the dishes";
+        Artist newArtist1 = new Artist(name01);
+        Artist newArtist2 = new Artist(name02);
+
+        List<Artist> artists =  Artist.GetArtistPartial("dog");
+        Assert.AreEqual(typeof(List<Artist>), artists.GetType());
+    }
+
+    [TestMethod]
+    public void GetArtistPartial_ReturnListOfArtists_CorrectList()
+    {
+            //Arrange
+        string name01 = "Walk the dog";
+        string name02 = "Wash the dishes";
+        Artist newArtist1 = new Artist(name01);
+        Artist newArtist2 = new Artist(name02);
+
+        List<Artist> artists =  Artist.GetArtistPartial("dog");
+        List<Artist> result = new List <Artist> {newArtist1};
+        CollectionAssert.AreEqual(artists, result);
+    }
+
+    [TestMethod]
+    public void GetArtistPartial_ReturnListOfArtists_CorrectList2()
+    {
+            //Arrange
+        string name01 = "Walk the dog";
+        string name02 = "Wash the dog";
+        Artist newArtist1 = new Artist(name01);
+        Artist newArtist2 = new Artist(name02);
+
+        List<Artist> artists =  Artist.GetArtistPartial("dog");
+        List<Artist> result = new List <Artist> {newArtist1, newArtist2};
+        CollectionAssert.AreEqual(artists, result);
+    }
+
+    [TestMethod]
+    public void GetArtistPartial_ReturnListOfArtists_CorrectList3()
+    {
+            //Arrange
+        string name01 = "Walk thedog";
+        string name02 = "Wash thedog";
+        Artist newArtist1 = new Artist(name01);
+        Artist newArtist2 = new Artist(name02);
+
+        List<Artist> artists =  Artist.GetArtistPartial("dog");
+        foreach(Artist artist in artists)
+        {
+            Console.WriteLine("Name", artist.Name);
+        }
+        List<Artist> result = new List <Artist> {newArtist1, newArtist2};
+        CollectionAssert.AreEqual(artists, result);
     }
   }
 }
