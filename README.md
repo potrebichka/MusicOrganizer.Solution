@@ -6,10 +6,12 @@
 Make a program for users to catalog and organize their music.
 
 ## Application should have:
-* They should be able to create a new record, enter the record title, and list out all of their records.
-* Add a feature that allowing users to add an artist to a record. Keep it simple - assume each is by a single artist.
-* After that, let users list out all the artists and choose an artist to see which records are by that artist.
-* Unit test
+* Users can add a new record title, artist name and can see the list out all of their records. User can see added records list at `/records` and see added artist list at `/artists`.
+
+* Users input will be listed out all the artists and users can choose an artist to see which records are by that artist. This will lead to `/search_by_artist`.
+* Users can search artist by partial word, first name or last name, for example, a user has created a record object by "JS Bach," they should be able to search for it by typing in "bach," "Bach," or "Johann Sebastian Bach." 
+* Unit test for backend logics.
+* Separated `styles.css`.
 
 
 ## Setup/Installation Requirements
