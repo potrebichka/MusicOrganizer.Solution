@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace MusicOrganizer.Models
 {
@@ -52,6 +53,20 @@ namespace MusicOrganizer.Models
         public static Artist GetArtist(int id)
         {
             return _instances[id-1];
+        }
+        public static List <Artist> GetArtistPartial(string searchName)
+        {
+            List<Artist> listOfMatchedArtists = new List <Artist> {};
+            Regex rx = new Regex(@"" + searchName + @"");
+            foreach (Artist artist in _instances)
+            {
+                if (rx.Match(artist.Name).Success)
+                {
+                    listOfMatchedArtists.Add(artist);
+                }
+            }
+            return listOfMatchedArtists;
+            
         }
     }
 }
