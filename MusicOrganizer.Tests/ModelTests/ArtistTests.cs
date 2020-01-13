@@ -2,6 +2,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System; // Add this if you want to use Console.WriteLine() in test method.
 using System.Collections.Generic;
 using MusicOrganizer.Models;
+using MySql.Data.MySqlClient;
 
 namespace MusicOrganizer.Tests
 {
@@ -13,7 +14,37 @@ namespace MusicOrganizer.Tests
     {
       Artist.ClearAll();
     }
+    public ArtistTest()
+    {
+      DBConfiguration.ConnectionString = "server=localhost;user id=root;password=epicodus;port=3306;database=artists_test;";
+    }
 
+    [TestMethod]
+    public void GetAll_ReturnEmptyListFromDatabase_ArtistList()
+    {
+      List<Artist> newList = new List<Artist> { };
+      List<Artist> result = Artist.GetAll();
+      CollectionAssert.AreEqual(newList, result);   
+    }
+    
+    [TestMethod]
+    public void Equals_ReturnsTrueIfDescriptionsAreTheSame_Artist()
+    {
+     Artist firstArtist = new Artist("Mow the lawn");
+     Artist secondArtist = new Artist("Mow the lawn");
+     Assert.AreEqual(firstArtist, secondArtist);
+    }
+     [TestMethod]
+     public void Save_SavesToDatabase_ArtistList()
+     {
+       Artist testArtist = new Artist("Hello");
+       testArtist.Save();
+       List<Artist> result = Artist.GetAll();
+       List<Artist> testList = new List<Artist>{testArtist};
+       CollectionAssert.AreEqual(testList, result);
+
+     }
+     
     [TestMethod]
     public void ArtistConstructor_CreatesInstanceOfArtist_Artist()
     {
@@ -22,7 +53,7 @@ namespace MusicOrganizer.Tests
     }
 
     [TestMethod]
-    public void GetDescription_ReturnsDescription_String()
+    public void GetName_ReturnsName_String()
     {
       //Arrange
       string name = "Walk the dog.";
@@ -51,18 +82,18 @@ namespace MusicOrganizer.Tests
       Assert.AreEqual(updatedName, result);
     }
 
-    [TestMethod]
-    public void GetAll_ReturnsEmptyList_ArtistList()
-    {
-      // Arrange
-      List<Artist> newList = new List<Artist> { };
+    // [TestMethod]
+    // public void GetAll_ReturnsEmptyList_ArtistList()
+    // {
+    //   // Arrange
+    //   List<Artist> newList = new List<Artist> { };
 
-      // Act
-      List<Artist> result = Artist.GetAll();
+    //   // Act
+    //   List<Artist> result = Artist.GetAll();
 
-      // Assert
-      CollectionAssert.AreEqual(newList, result);
-    }
+    //   // Assert
+    //   CollectionAssert.AreEqual(newList, result);
+    // }
 
     [TestMethod]
     public void GetAll_ReturnsArtists_ArtistList()
@@ -71,7 +102,9 @@ namespace MusicOrganizer.Tests
       string name01 = "Walk the dog";
       string name02 = "Wash the dishes";
       Artist newArtist1 = new Artist(name01);
+      newArtist1.Save();
       Artist newArtist2 = new Artist(name02);
+      newArtist2.Save();
       List<Artist> newList = new List<Artist> { newArtist1, newArtist2 };
 
       //Act
@@ -92,7 +125,7 @@ namespace MusicOrganizer.Tests
       int result = newArtist.Id;
 
       //Assert
-      Assert.AreEqual(1, result);
+      Assert.AreEqual(0, result);
     }
 
     [TestMethod]
@@ -102,13 +135,27 @@ namespace MusicOrganizer.Tests
         string name01 = "Walk the dog";
         string name02 = "Wash the dishes";
         Artist newArtist1 = new Artist(name01);
+        newArtist1.Save();
         Artist newArtist2 = new Artist(name02);
+        newArtist2.Save();
 
         //Act
-        Artist result = Artist.Find(2);
+        Artist result = Artist.Find(newArtist1.Id);
 
         //Assert
-        Assert.AreEqual(newArtist2, result);
+        Assert.AreEqual(newArtist1, result);
+    }
+
+    [TestMethod]
+    public void FindArtist_ReturnCorrectArtistFromDataBase_Artist()
+    {
+      Artist newArtist = new Artist("Mow the lawn");
+      newArtist.Save();
+      Artist newArtist2 = new Artist("Wash dishes");
+      newArtist2.Save();
+      int foundArtist = Artist.FindArtist(newArtist.Name);
+      Assert.AreEqual(newArtist.Id, foundArtist);
+
     }
     [TestMethod]
     public void GetArtistPartial_ReturnListOfArtists_List()
@@ -130,7 +177,9 @@ namespace MusicOrganizer.Tests
         string name01 = "Walk the dog";
         string name02 = "Wash the dishes";
         Artist newArtist1 = new Artist(name01);
+        newArtist1.Save();
         Artist newArtist2 = new Artist(name02);
+        newArtist2.Save();
 
         List<Artist> artists =  Artist.GetArtistPartial("dog");
         List<Artist> result = new List <Artist> {newArtist1};
@@ -144,7 +193,9 @@ namespace MusicOrganizer.Tests
         string name01 = "Walk the dog";
         string name02 = "Wash the dog";
         Artist newArtist1 = new Artist(name01);
+        newArtist1.Save();
         Artist newArtist2 = new Artist(name02);
+        newArtist2.Save();
 
         List<Artist> artists =  Artist.GetArtistPartial("dog");
         List<Artist> result = new List <Artist> {newArtist1, newArtist2};
@@ -158,7 +209,9 @@ namespace MusicOrganizer.Tests
         string name01 = "Walk thedog";
         string name02 = "Wash thedog";
         Artist newArtist1 = new Artist(name01);
+        newArtist1.Save();
         Artist newArtist2 = new Artist(name02);
+        newArtist2.Save();
 
         List<Artist> artists =  Artist.GetArtistPartial("dog");
         foreach(Artist artist in artists)

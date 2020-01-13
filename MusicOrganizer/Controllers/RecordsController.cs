@@ -34,6 +34,7 @@ namespace MusicOrganizer.Controllers
                 if (result == -1)
                 {
                     myArtist = new Artist(name);
+                    myArtist.Save();
                 }
                 else 
                 {
